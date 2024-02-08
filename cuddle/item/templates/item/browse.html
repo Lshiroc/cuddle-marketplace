@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Browse{% endblock %}
+
+{% block content %}
+<div class="w-full flex space-x-4">
+    <div class="p-4 bg-gray-100 rounded-lg">
+        <form method="GET" action="{% url 'item:browse' %}">
+            <input type="text" class="mb-2 w-full p-2 border border-solid border-gray-400 outline-purple-400 rounded-lg" placeholder="Search it already!" name="query" value="{{ query }}" />
+            <button type="submit" class="w-full p-2 bg-purple-400 hover:bg-purple-500 rounded-lg font-bold text-white text-lg">Search</button>
+        </form>
+
+        <hr class="my-6">
+
+        <p class="font-semibold mb-4">Categories</p>
+        <ul>
+            {% for category in categories %}
+                <li class="py-2 px-2 rounded-xl {% if category.id == category_id %} bg-purple-200 {% endif %}">
+                    <a href="{% url 'item:browse' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
+                </li>   
+            {% endfor %}
+        </ul>
+
+        <hr class="my-6">
+
+        <p class="font-semibold">Clear filters</p>
+        <ul>
+            <li><a href="{% url 'item:browse' %}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl text-white">Clear</a></li>
+        </ul>
+    </div>
+    <div class="w-2/3">
+        <div class="grid grid-cols-3">
+            {% for item in items %}
+                <a href="{% url 'item:detail' item.id %}" class="inline-block mr-2 mb-4 p-2 bg-gray-100">
+                    <img src="{{ item.image.url }}" alt="Product Image" />
+                    <h2 class="text-lg font-bold">{{ item.name }}</h2>
+                    <div class="">{{ item.price }}$</div>
+                </a>
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+{% endblock %}

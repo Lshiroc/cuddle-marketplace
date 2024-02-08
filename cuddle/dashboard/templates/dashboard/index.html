@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ user }}'s Dashboard{% endblock %}
+
+{% block content %}
+    <div class="w-full p-4 bg-gray-100 rounded-xl">
+        <h2 class="text-4xl mb-4 font-bold">My items</h2>
+        <div class="grid grid-cols-4 mb-10">
+        {% for item in items %}
+            <a href="{% url 'item:detail' item.id %}" class="inline-block p-4 bg-purple-200">
+                <img src="{{ item.image.url }}" alt="Product Image" class="mb-4" />
+                <h2 class="text-lg font-bold">{{ item.name }}</h2>
+                <div>${{ item.price }}</div>
+            </a>
+        {% endfor %}
+        </div>
+        <hr class="h-px mb-4 bg-purple-400 border-0 dark:bg-pruple-700">
+        <h2 class="text-4xl mb-4 font-bold">My Conversations</h2>
+        {% for conversation in conversations %}
+            <a href="{% url 'conversation:messages' conversation.id %}" class="w-full inline-block p-4 bg-purple-200 rounded-xl">
+                <h2 class="text-lg font-bold">{{ conversation.item.name }}</h2>
+                <p class="">
+                    <strong>{{ conversation.convo_with }}</strong> - {{ conversation.modified_at }}
+                </p>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+

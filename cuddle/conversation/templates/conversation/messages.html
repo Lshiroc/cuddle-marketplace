@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+
+<div class="w-full">
+    <div class="w-full grid">
+        {% for message in conversation.messages.all %}
+            <div class="mb-2 justify-self-{% if message.created_by == request.user %}end bg-purple-300{% else %}start bg-blue-400{% endif %} p-2 rounded-lg">{{ message.content }}</div>
+        {% endfor %}
+    </div>
+    
+    <form class="w-full" method="POST" action="">
+        <div class="mt-6 mb-4">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="w-full py-4 rounded-xl bg-purple-400 text-white text-2xl font-bold">Send</button>
+    </div>
+</div>
+
+
+{% endblock %}
+

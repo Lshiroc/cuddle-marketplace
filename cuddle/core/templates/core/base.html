@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Cuddle!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="w-full bg-gray-100 p-6 flex justify-between">
+        <a href="{% url 'core:index' %}" class="inline-block text-3xl font-bold text-purple-500">Cuddle!</a>
+        <ul class="flex space-x-3">
+            <li><a href="/" class="text-lg hover:text-purple-500">Home</a></li>
+            <li><a href="{% url 'item:browse' %}" class="text-lg hover:text-purple-500">Browse</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'item:newitem' %}" class="text-lg px-4 py-2 bg-gray-100 hover:bg-purple-500 rounded-lg text-purple-500 hover:text-white border-solid border-2 border-purple-500 hover:border-purple-500">New item</a></li>
+                <li><a href="{% url 'dashboard:index' %}" class="text-lg px-4 py-2 bg-purple-500 hover:bg-purple-700 text-white rounded-lg border-2 border-purple-500">Dashboard</a></li>
+            {% else %}
+                <li><a href="{% url 'core:login' %}" class="text-lg px-4 py-2 bg-gray-100 hover:bg-purple-500 rounded-lg text-purple-500 hover:text-white border-solid border-2 border-purple-500 hover:border-purple-500">Login</a></li>
+                <li><a href="{% url 'core:signup' %}" class="text-lg px-4 py-2 bg-purple-500 hover:bg-purple-700 text-white rounded-lg border-2 border-purple-500">Sign up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <main class="w-full flex justify-center align-center px-6 py-10">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="w-full py-6 px-6 bg-purple-500 flex justify-between">
+        <div class="w-2/3 pr-10">
+            <a href="{% url 'core:index' %}" class="inline-block mb-5 font-semibold text-2xl text-white font-bold">Cuddle!</a>
+            <p class="text-lg text-white">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae sint, maiores delectus expedita et incidunt perferendis! Fugiat ut dignissimos reprehenderit.</p>
+        </div>
+        <div class="w-1/3">
+            <h3 class="mb-5 font-semibold text-white">Menu</h3>
+
+            <ul class="space-y-2">
+                <li><a href="#" class="text-lg text-white">About</a></li>
+                <li><a href="#" class="text-lg text-white">Contact</a></li>
+                <li><a href="#" class="text-lg text-white">Privacy policy</a></li>
+                <li><a href="#" class="text-lg text-white">Terms of use</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

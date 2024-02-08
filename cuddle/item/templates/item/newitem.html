@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+
+{% block title %}New item{% endblock %}
+
+{% block content %}
+    <div class="p-4 bg-gray-100 rounded-xl">
+        <h1 class="mb-2 text-purple-500 text-2xl font-bold">Add new item</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="mb-2 inline-block">Category</label>
+                {{ form.category }}
+            </div>
+            <div class="mb-3">
+                <label class="mb-2 inline-block">Name</label>
+                {{ form.name }}
+            </div>
+            <div class="mb-3">
+                <label class="mb-2 inline-block">Description</label>
+                {{ form.description }}
+            </div>
+            <div class="mb-3">
+                <label class="mb-2 inline-block">Price</label>
+                {{ form.price }}
+            </div>
+            <div class="mb-3">
+                <label class="mb-2 inline-block">Image</label>
+                {{ form.image }}
+            </div>
+
+            <button type="submit" class="py-2 px-2 bg-purple-400 hover:bg-purple-500 font-bold text-white text-lg w-full rounded-xl">Add item</button>
+        </form>
+    </div>
+{% endblock %}
